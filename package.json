@@ -2,6 +2,8 @@
   "name": "ibeam",
   "version": "0.1.0",
   "files": [
+    "http-browser.js",
+    "http-node.js",
     "index.js",
     "lib/",
     "README.md"
