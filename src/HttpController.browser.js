@@ -11,6 +11,13 @@ export function request(
   payload: string = '',
   headers: HttpHeaders = {}
 ): Promise<HttpControllerResponse> {
+  if (typeof XMLHttpRequest === 'undefined') {
+    throw new Error(
+      'XMLHttpRequest does not exist. ' +
+      'If you\'re using Node, you should use the Node HTTP Controller:\n' +
+      '  import HttpController from \'ibeam/http-node\''
+    );
+  }
   const xhr = new XMLHttpRequest();
 
   const promise = new Promise((resolve, reject) => {

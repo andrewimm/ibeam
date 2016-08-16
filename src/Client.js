@@ -20,6 +20,12 @@ export default class Client {
     }
     this._useHttps = config.https === false ? false : true;
     this._host = config.host;
+    if (this._host && this._host.startsWith('http://')) {
+      if (config.https !== true) {
+        this._useHttps = false;
+      }
+      this._host = this._host.substr(0, 7);
+    }
     this._httpController = config.hasOwnProperty('httpController') ?
       config.httpController :
       require('./HttpController.browser');
