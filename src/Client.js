@@ -20,11 +20,17 @@ export default class Client {
     }
     this._useHttps = config.https === false ? false : true;
     this._host = config.host;
-    if (this._host && this._host.startsWith('http://')) {
-      if (config.https !== true) {
-        this._useHttps = false;
+    if (this._host) {
+      if (this._host.startsWith('http://')) {
+        if (config.https !== true) {
+          this._useHttps = false;
+        }
+        this._host = this._host.substr(7);
+      } else if (this._host.startsWith('https://')) {
+        this._host = this._host.substr(8);
+      } else if (this._host.indexOf('://') > -1) {
+        throw new Error('Unsupported host protocol');
       }
-      this._host = this._host.substr(0, 7);
     }
     this._httpController = config.hasOwnProperty('httpController') ?
       config.httpController :

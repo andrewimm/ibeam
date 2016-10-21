@@ -18,6 +18,16 @@ suite('Client', () => {
     expect(client._useHttps).to.be.false;
   });
 
+  test('https can be detected from host', () => {
+    let client = new Client({host: 'https://example.com'});
+    expect(client._useHttps).to.be.true;
+    expect(client._host).to.equal('example.com');
+
+    client = new Client({host: 'http://example.com'});
+    expect(client._useHttps).to.be.false;
+    expect(client._host).to.equal('example.com');
+  });
+
   test('GET request defaults to urlencoding', () => {
     let controller = new MockHTTP([{}]);
     let client = new Client({
